@@ -1,0 +1,65 @@
+$primary: #1e40af;
+$secondary: #9333ea;
+$text: #111827;
+$blackColor: #111827;
+$selectColor: #2563eb;
+$tableWrapper: #e5e7eb;
+$white: #fff;
+$filterLabel: #6b7280;
+$headRowBg: #f4f6fb;
+$headRowColor: #5b5b5c;
+$headRowBb: #e5e7eb;
+$voiceMail: #1f2937;
+$missed: #ef4444;
+$answered: #04f36b;
+$link: #2563eb;
+$archivedBg: #e7fbf6;
+$archivedText: #0f766e;
+$addNoteBtnHover: #4a47db;
+$paginationSelected: #4f46f8;
+$paginationSelectedHover: #4338f2;
+$paginationSelectedFocus: rgba(79, 70, 248, 0.25);
+$resultsText: #374151;
+$labelColor: #374151;
+$placeholderColor: #9ca3af;
+$button-bg: $paginationSelected; // already defined as #4f46f8
+$button-color: $white;   
+
+$muted: #6b7280;          // Slate-500
+$link: #2563eb;           // Blue-600
+$input-border: #e5e7eb;   // Gray border
+$input-bg: #fafafa;       // Background for scrollable notes
+$addNoteBtn: #5956e9;
+$addNoteBtnHover: #4a47db;
+$white: #fff;
+
+$archivedBg: #e7fbf6;
+$archivedText: #17b0a5;
+$archivedBgHover: #dff7f1;
+
+// Unarchived (gray)
+$unarchivedBg: #eeeeee;
+$unarchivedText: #7a7a7a;
+$unarchivedBgHover: #e8e8e8;
+
+// Font weights
+$font-weight-bold: 700;
+$font-weight-semi: 600;
+
+$font-size-base: 12px;
+$font-size-body: 14px;
+$font-size-small: 13px;
+
+$addNoteBtn: #5956e9;
+$font-weight-bold: 700;
+$spacing-2: 8px;
+$spacing-3: 16px;
+$spacing-4: 20px;
+
+
+/* Optional: CSS Variables for runtime use */
+:root {
+  --color-primary: #{$primary};
+  --color-secondary: #{$secondary};
+  --color-text: #{$text};
+}

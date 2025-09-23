@@ -1,0 +1,20 @@
+@import '../../../../public/styles/variables';
+
+.button {
+  height: 40px;
+  padding-inline: 18px; // ~2.25 spacing
+  font-weight: 500;
+  background-color: $button-bg !important;
+  text-transform: none !important;
+  border-radius: 3px;
+  color: $button-color !important;
+
+  &.MuiButton-root {
+    height: 40px;
+    font-size: $font-size-base;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}

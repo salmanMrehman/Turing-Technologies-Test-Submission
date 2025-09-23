@@ -1,0 +1,39 @@
+@import '../../../../public/styles/variables';
+
+.paper {
+  border-radius: 10px;
+}
+
+.title {
+  font-weight: $font-weight-bold;
+  padding: 14px $spacing-4 0 $spacing-4;
+}
+
+.content {
+  padding: 10px $spacing-4 0 $spacing-4 !important;
+}
+
+.message {
+  margin: 0;
+  color: $labelColor;
+}
+
+.actions {
+  padding: $spacing-3 $spacing-4 $spacing-4 $spacing-4;
+  display: flex;
+  gap: $spacing-2;
+  justify-content: flex-end;
+}
+
+.cancelBtn:global(.MuiButton-root) {
+  text-transform: none;
+}
+
+.confirmBtn:global(.MuiButton-root) {
+  text-transform: none;
+  background: $addNoteBtn;
+}
+
+.confirmBtn:global(.MuiButton-root):hover {
+  background: $addNoteBtnHover;
+}

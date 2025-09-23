@@ -1,0 +1,57 @@
+@import '../../../../public/styles/variables';
+
+/* ARCHIVED — mint pill */
+.archived {
+  text-transform: none !important;
+  font-weight: $font-weight-bold;
+  border-radius: 8px;
+  height: 34px;
+  padding: 0 14px;
+  min-width: auto;
+  letter-spacing: 0.2px;
+  background: $archivedBg;   /* mint bg */
+  color: $archivedText;      /* teal text */
+  box-shadow: none;
+}
+
+/* Ensure our rules beat MUI by targeting the global classes */
+.archived:global(.MuiButton-root) {
+  box-shadow: none;
+}
+.archived:global(.MuiButton-root):global(.MuiButton-contained) {
+  background: $archivedBg;
+  color: $archivedText;
+}
+.archived:global(.MuiButton-root):hover {
+  background: $archivedBgHover;
+}
+
+/* UNARCHIVE — light gray rounded bg with gray text */
+.unarchived {
+  text-transform: none !important;
+  font-weight: $font-weight-semi;
+  border-radius: 8px;
+  height: 34px;
+  padding: 0 12px;
+  min-width: auto;
+  background: $unarchivedBg;
+  color: $unarchivedText;
+  box-shadow: none;
+}
+
+/* Tie to MUI classes in all states */
+.unarchived:global(.MuiButton-root) {
+  box-shadow: none;
+}
+.unarchived:global(.MuiButton-root):global(.MuiButton-text) {
+  background: $unarchivedBg;
+  color: $unarchivedText;
+}
+.unarchived:global(.MuiButton-root):hover {
+  background: $unarchivedBgHover;
+}
+
+/* spinner matches text color */
+.spinner {
+  color: currentColor;
+}

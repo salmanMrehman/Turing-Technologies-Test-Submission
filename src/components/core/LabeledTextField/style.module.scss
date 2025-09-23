@@ -1,0 +1,46 @@
+@import '../../../../public/styles/variables';
+
+.field { 
+  display: grid;
+  row-gap: 8px;
+}
+
+/* Label styles */
+.label {
+  color: $labelColor;         // slate-700
+  line-height: 1.2;
+  font-weight: bolder;
+  margin-bottom: 5px !important;
+  font-size: $font-size-base !important;
+}
+
+.required {
+  color: $missed !important;  // red-500
+  margin-right: 6px;
+}
+
+/* Icon color/align */
+.icon {
+  color: $filterLabel;        // gray-500
+  display: inline-flex;
+  align-items: center;
+}
+
+.textField :global(.MuiOutlinedInput-input),
+.textField :global(.MuiInputBase-input) {
+  padding: 10px 0px;
+}
+
+/* Placeholder font-size = 12px (covering common engines) */
+.textField :global(.MuiOutlinedInput-input::placeholder),
+.textField :global(.MuiInputBase-input::placeholder),
+.textField :global(.MuiOutlinedInput-input::-webkit-input-placeholder),
+.textField :global(.MuiInputBase-input::-webkit-input-placeholder),
+.textField :global(.MuiOutlinedInput-input::-moz-placeholder),
+.textField :global(.MuiInputBase-input::-moz-placeholder),
+.textField :global(.MuiOutlinedInput-input:-ms-input-placeholder),
+.textField :global(.MuiInputBase-input:-ms-input-placeholder) {
+  font-size: $font-size-base;
+  color: $placeholderColor;
+  opacity: 1;
+}

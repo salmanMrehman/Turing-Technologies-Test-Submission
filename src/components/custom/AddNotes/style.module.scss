@@ -1,0 +1,161 @@
+@import '../../../../public/styles/variables';
+
+.paper {
+  width: 640px;
+  max-width: 92vw;
+  border-radius: 8px;
+  font-size: $font-size-base !important;
+}
+
+.title {
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 10px 48px 12px 24px;
+  font-size: $font-size-base !important;
+}
+
+.closeBtn {
+  position: absolute !important;
+  right: 8px;
+  top: 8px;
+  color: $muted;
+}
+
+.content {
+  padding: 0 24px 24px 24px !important;
+}
+
+/* Top mini link */
+.metaTop {
+  padding: 0 0 8px 0;
+}
+.callLink {
+  display: inline-block;
+  color: $link;
+  font-size: $font-size-base !important;
+  margin-top: -4px;
+}
+
+/* 2-column label/value rows (stack on small screens if you want) */
+.grid {
+  margin-top: 6px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 67px 1fr;
+  gap: 0px;
+  align-items: start;
+  padding: 5px 0;
+}
+.label {
+  color: $text;
+  font-weight: 700;
+}
+.value {
+  color: $text;
+}
+.valueBlue {
+  color: $link;
+  font-weight: 600;
+}
+
+/* Notes */
+.notesBlock {
+  margin-top: 8px;
+}
+.notesLabelExisting {
+  color: $text;
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+.notesLabel {
+  color: $text;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.notesInput :global(.MuiOutlinedInput-root) {
+  border-radius: 6px;
+}
+.notesInput :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: $input-border;
+}
+.notesInput :global(.MuiOutlinedInput-input) {
+  font-size: $font-size-body;
+}
+
+/* Save button bar */
+.actions {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid $input-border;
+  display: block;
+}
+
+/* Make the button fill the container width */
+.saveBtn {
+  width: 100%;
+}
+
+.saveBtn:global(.MuiButton-root) {
+  height: 44px;
+  border-radius: 6px;
+  background: $addNoteBtn;
+  text-transform: none;
+  font-weight: 500;
+  box-shadow: none;
+  color: $white;
+}
+.saveBtn:global(.MuiButton-root):hover {
+  background: $addNoteBtnHover;
+}
+
+/* Button spans full dialog width */
+.actions--edge {
+  margin-left: -24px;
+  margin-right: -24px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.notesHistoryWrap {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid $input-border;
+  border-radius: 6px;
+  background: $input-bg;
+  padding: 5px 12px;
+}
+
+.emptyNotes {
+  color: $muted;
+  font-size: $font-size-small;
+}
+
+.notesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.noteItem {
+  padding: 5px 0;
+  border-bottom: 1px solid $input-border;
+}
+.noteItem:last-child {
+  border-bottom: none;
+}
+
+.noteContent {
+  color: $text;
+  line-height: 1.35;
+}
+
+.noteMeta {
+  color: $muted;
+  font-size: $font-size-base;
+  margin-top: 4px;
+}

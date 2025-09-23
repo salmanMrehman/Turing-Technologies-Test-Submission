@@ -1,0 +1,41 @@
+.appBar {
+  height: 56px;
+  justify-content: center;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: none;
+}
+
+.toolbar {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoWrap {
+  position: relative;
+  width: 160px;
+  height: 24px;
+}
+
+/* right side */
+.actions {
+  margin-left: auto; /* pushes actions to the right */
+  display: flex;
+  align-items: center;
+}
+
+/* optional: style the MUI button via CSS module */
+.button.MuiButton-root {
+  height: 34px;
+  padding: 0 14px;
+  text-transform: none;
+  font-weight: 600;
+  border-radius: 4px;
+}
