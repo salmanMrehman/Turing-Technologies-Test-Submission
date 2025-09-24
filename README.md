@@ -18,10 +18,10 @@ npm run test
 ## PROJECT DEV NOTES: React / Next.js (Calls App)
 ## 1) Routing & Layout (App Router)
 • Pages:
-o /login → src/app/login/page.tsx
-o /calls → src/app/calls/page.tsx
+app/login → src/app/login/page.tsx
+app/calls → src/app/calls/page.tsx
 • Global layout: src/app/layout.tsx
-o Wraps Redux <Provider>, MUI ThemeProvider, CssBaseline, common
+ Wraps Redux <Provider>, MUI ThemeProvider, CssBaseline, common
 <Header />
 o Mounts <TokenRefresher /> and toast provider (react-hot-toast)
 o Uses usePathname() to apply white background on /calls
