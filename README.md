@@ -17,53 +17,30 @@ npm run test
 ```
 ## PROJECT DEV NOTES: React / Next.js (Calls App)
 ## 1) Routing & Layout (App Router)
-• Pages:
-app/login → src/app/login/page.tsx
-app/calls → src/app/calls/page.tsx
-• Global layout: src/app/layout.tsx
- Wraps Redux <Provider>, MUI ThemeProvider, CssBaseline, common
-<Header />
+• Pages: app/login → src/app/login/page.tsx, app/calls → src/app/calls/page.tsx
+• Global layout: src/app/layout.tsx, Wraps Redux <Provider>, MUI ThemeProvider, CssBaseline, common <Header />
 • Mounts <TokenRefresher /> and toast provider (react-hot-toast)
-• Uses usePathname() to apply white background on /calls
-
-// layout.tsx (client)
-<Provider store={store}>
-<ThemeProvider theme={theme}>
-<CssBaseline />
-<TokenRefresher />
-<RealtimeGate /> {/* mounts CallsRealtime only if logged in and on /calls */}
-<Header />
-<Box component="main">{children}</Box>
-</ThemeProvider>
-</Provider>
-<Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-Background override for /calls
-/* globals.scss */
-html, body { background: #f9fafb; }
-body.bg-white { background: #fff; }
-const isCalls = pathname.startsWith('/calls');
-
-<body className={isCalls ? 'bg-white' : undefined}>
 
 ## 2) Styling (CSS Modules + MUI)
 • Use style.module.scss per component
 • When overriding internal MUI classes, wrap with :global(...)
-Example: remove Select outline in all states
-.select :global(.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline),
-.select :global(.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline),
-.select :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline),
-.select :global(.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline) {
-border: 0;
-}
-Fonts defined in public/styles/globals.scss via @font-face; html, body set to 'Avenir LT Std'.
+```bash
+          Example: remove Select outline in all states
+          .select :global(.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline),
+          .select :global(.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline),
+          .select :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline),
+          .select :global(.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline) {
+          border: 0;
+          }
+```
+• Fonts defined in public/styles/globals.scss via @font-face; html, body set to 'Avenir LT Std'.
 
 ## 3) Shared UI Components
 • Header: MUI AppBar; left logo + right actions (margin-left: auto)
 • LabeledTextField: MUI TextField with label + start icon; placeholder size & focus
 ring styled via module
 • PrimaryButton: Reusable; CSS vars --btn-bg, --btn-py for bg and vertical padding
-• ArchiveButton: Two variants (archived pill vs unarchive chip); color="inherit"; MUI
-classes targeted via :global
+• ArchiveButton: Two variants (archived pill vs unarchive chip); color="inherit"; MUI classes targeted via :global
 • ConfirmDialog: Generic confirmation modal (separate style file)
 • AddNotes:
 • Shows call metadata
@@ -80,15 +57,16 @@ classes targeted via :global
 ## 5) Axios Instance & Interceptors
 • Adds Authorization: Bearer <token> from getTicket() to every request
 • Response interceptor: detect successful POST/PUT and let caller notify user
-instance.interceptors.response.use((res) => {
-const m = res.config.method?.toLowerCase();
-const ok = res.status >= 200 && res.status < 300;
-if (ok && (m === 'post' || m === 'put')) {
-// trigger your own notifier here if desired
-}
-return res;
-});
-
+```bash
+      instance.interceptors.response.use((res) => {
+      const m = res.config.method?.toLowerCase();
+      const ok = res.status >= 200 && res.status < 300;
+      if (ok && (m === 'post' || m === 'put')) {
+      // trigger your own notifier here if desired
+      }
+      return res;
+      });
+```
 ## 6) Redux — Auth
 • logIn stores access_token, refresh_token, computes expiresAt
 • <TokenRefresher /> schedules silent refresh (~9 minutes or from expires_in)
@@ -108,9 +86,9 @@ calls + backupCalls
 • applyCallUpdate(call) → apply call payload (used by realtime Pusher)
 Filtering
 • filterCalls(value):
-o all → restore backupCalls
-o archived / unarchived → filter by is_archived
-o otherwise → filter by call_type (case-insensitive)
+• all → restore backupCalls
+• archived / unarchived → filter by is_archived
+• otherwise → filter by call_type (case-insensitive)
 
 ## 8) Calls Page (UI)
 • Loads on page/perPage change
@@ -168,6 +146,7 @@ defensively)
 • getTicket/setTicket in utils/auth (persist token for axios)
 
 ## 14) Suggested File Structure
+```bash
 src/
 app/
 layout.tsx
@@ -201,7 +180,7 @@ helper.ts
 public/
 styles/globals.scss
 images/...
-
+```
 ## 15) Conventions
 • App Router with client components for interactive parts
 • All component styles in CSS Modules; no inline sx except tiny layout tweaks
