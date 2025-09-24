@@ -23,8 +23,8 @@ app/calls → src/app/calls/page.tsx
 • Global layout: src/app/layout.tsx
  Wraps Redux <Provider>, MUI ThemeProvider, CssBaseline, common
 <Header />
-o Mounts <TokenRefresher /> and toast provider (react-hot-toast)
-o Uses usePathname() to apply white background on /calls
+• Mounts <TokenRefresher /> and toast provider (react-hot-toast)
+• Uses usePathname() to apply white background on /calls
 
 // layout.tsx (client)
 <Provider store={store}>
@@ -66,15 +66,15 @@ ring styled via module
 classes targeted via :global
 • ConfirmDialog: Generic confirmation modal (separate style file)
 • AddNotes:
-o Shows call metadata
-o Scrollable existing notes (newest first)
-o Validates textarea non-empty
-o Full-width Save button
+• Shows call metadata
+• Scrollable existing notes (newest first)
+• Validates textarea non-empty
+• Full-width Save button
 
 ## 4) Notifications
 • Use react-hot-toast:
-o Mount <Toaster /> once in layout
-o Call anywhere: toast.success('Saved!')
+• Mount <Toaster /> once in layout
+• Call anywhere: toast.success('Saved!')
 • Alternative: notistack if you want MUI-styled snackbars
 
 ## 5) Axios Instance & Interceptors
@@ -117,33 +117,33 @@ o otherwise → filter by call_type (case-insensitive)
 • Client-side filter dropdown (archive/type)
 • Table with formatted duration (formatMinutesSeconds)
 • Pagination:
-o MUI <Pagination /> centered, with “x–y of N results” below
-o Active page item color customized to #4f46f8
+• MUI <Pagination /> centered, with “x–y of N results” below
+• Active page item color customized to #4f46f8
 
 ## 9) Add Notes Flow
 • From table row → “Add Note” opens modal with selected call
 • Build AddNotesData from CallItem:
 
-o Compute durationReadable via formatMinutesSeconds(row.duration)
-o Normalize notes to ensure id/content/created_at
+• Compute durationReadable via formatMinutesSeconds(row.duration)
+• Normalize notes to ensure id/content/created_at
 • Save:
-o Dispatch addNote({ id, content })
-o On success, reducer replaces call; modal closes
+• Dispatch addNote({ id, content })
+• On success, reducer replaces call; modal closes
 
 ## 10) Archive/Unarchive Flow
 • Click ArchiveButton → shows ConfirmDialog
 • On confirm:
-o Dispatch archiveCall({ id })
-o Reducer replaces call with API response (toggled is_archived)
+• Dispatch archiveCall({ id })
+• Reducer replaces call with API response (toggled is_archived)
 
 ## 11) Realtime (Pusher)
 • Component: CallsRealtime (client)
 • Mount via RealtimeGate inside layout only when logged in (and optionally only on
 /calls)
 • Pusher config:
-o APP_KEY: d44e3d910d38a928e0be
-o APP_CLUSTER: eu
-o AUTH_ENDPOINT: https://frontend-test-api.aircall.dev/pusher/auth
+• APP_KEY: d44e3d910d38a928e0be
+• APP_CLUSTER: eu
+• AUTH_ENDPOINT: https://frontend-test-api.aircall.dev/pusher/auth
 • Subscribes to private-aircall, listens update-call and dispatches
 applyCallUpdate(payload)
 
@@ -153,13 +153,13 @@ applyCallUpdate(payload)
 • Select outline → target fieldset .MuiOutlinedInput-notchedOutline
 
 • Type mismatches:
-o Normalize notes when opening modal (ensure created_at), or relax modal
+• Normalize notes when opening modal (ensure created_at), or relax modal
 type to store’s CallNote
-o Pusher payload typed as CallItem (or Partial<CallItem> & { id: string }
+• Pusher payload typed as CallItem (or Partial<CallItem> & { id: string }
 defensively)
 
 • Filtering:
-o Always filter from backupCalls; restore full list on “all”
+• Always filter from backupCalls; restore full list on “all”
 
 ## 13) Useful Utilities
 • formatMinutesSeconds(totalSeconds) → { minutes, seconds } or a pretty string (e.g.,
