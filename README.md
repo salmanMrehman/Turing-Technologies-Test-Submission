@@ -74,7 +74,7 @@ ring styled via module <br>
 
 ## 7) Redux — Calls
 
-#State: <br>
+State: <br>
 • calls (current page), backupCalls (source for client-side filters), page, perPage, totalCount,
 hasNextPage, status, error <br>
 Thunks: <br>
@@ -104,7 +104,7 @@ Filtering: <br>
 
 • Compute durationReadable via formatMinutesSeconds(row.duration) <br>
 • Normalize notes to ensure id/content/created_at <br>
-# Save:  <br>
+Save:  <br>
 • Dispatch addNote({ id, content }) <br>
 • On success, reducer replaces call; modal closes <br>
 
@@ -187,4 +187,29 @@ images/...
 • Thunks return normalized shapes; reducers replace updated calls <br>
 • Realtime updates merged via applyCallUpdate to keep UI in sync <br>
 
+## 16) Tested Component Files
+
+• src/components/core/LabeledTextField/index.tsx <br>
+
+• src/components/core/PrimaryButton/index.tsx <br>
+
+• src/components/core/ArchiveButton/index.tsx <br>
+
+• src/components/custom/AddNotes/index.tsx <br>
+
+• src/components/custom/ConfirmDialog/index.tsx <br>
+
+• src/components/custom/Header/index.tsx <br>
+
+• src/components/system/TokenRefresher.tsx <br>
+
+• src/components/system/CallsRealtime.tsx<br> 
+
+## 17)Test Results
+```bash
+Test Suites: 7 passed, 7 total
+Tests:       42 passed, 42 total
+Snapshots:   0 total
+Time:        18.682 s
+```
 ## Thank you for giving me this oppoertunity. I hope we can work and learn toghether to develop great systems.
