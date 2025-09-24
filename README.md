@@ -12,6 +12,8 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+npm run test 
 ```
 PROJECT DEV NOTES: React / Next.js (Calls App)
 1) Routing & Layout (App Router)
