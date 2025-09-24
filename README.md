@@ -77,14 +77,14 @@ ring styled via module <br>
 #State: <br>
 • calls (current page), backupCalls (source for client-side filters), page, perPage, totalCount,
 hasNextPage, status, error <br>
-#Thunks: <br>
+Thunks: <br>
 • fetchCalls({ page, perPage }) → normalizes API to { nodes, totalCount, hasNextPage };
 stores array in calls <br>
 • addNote({ id, content }) → POST /calls/:id/note; reducer replaces the updated call in
 calls + backupCalls <br>
 • archiveCall({ id }) → PUT /calls/:id/archive (toggle); reducer replaces updated call <br>
 • applyCallUpdate(call) → apply call payload (used by realtime Pusher) <br>
-#Filtering <br>
+Filtering: <br>
 • filterCalls(value): <br>
 • all → restore backupCalls <br>
 • archived / unarchived → filter by is_archived <br>
@@ -129,14 +129,14 @@ applyCallUpdate(payload) <br>
 • React root duplication for toasts → use a library (react-hot-toast or notistack) <br>
 • CSS Modules vs MUI → use :global(.Mui*...) when overriding MUI classes <br>
 • Select outline → target fieldset .MuiOutlinedInput-notchedOutline <br>
-
-# Type mismatches:
+ 
+Type mismatches: <br>
 • Normalize notes when opening modal (ensure created_at), or relax modal
 type to store’s CallNote <br>
 • Pusher payload typed as CallItem (or Partial<CallItem> & { id: string }
 defensively) <br>
 
-# Filtering: <br>
+Filtering: <br>
 • Always filter from backupCalls; restore full list on “all” <br><br>
 
 ## 13) Useful Utilities
