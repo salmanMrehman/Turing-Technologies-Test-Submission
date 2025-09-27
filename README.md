@@ -16,10 +16,10 @@ bun dev
 npm run test 
 ```
 ## PROJECT DEV NOTES: React / Next.js (Calls App)
-## 1) Routing & Layout (App Router)
+## 1) Routing, Layout & Middleware (App Router)
 • Pages: app/login → src/app/login/page.tsx, app/calls → src/app/calls/page.tsx <br>
 • Global layout: src/app/layout.tsx, Wraps Redux <Provider>, MUI ThemeProvider, CssBaseline, common <Header /> <br>
-• Mounts <TokenRefresher /> and toast provider (react-hot-toast) <br>
+• Middleware: The middleware.ts intercepts every request, checks for a valid auth cookie, and redirects users to /login if missing or /calls if already logged in. <br>
 
 ## 2) Styling (CSS Modules + MUI)
 • Use style.module.scss per component <br>
@@ -187,7 +187,7 @@ images/...
 • Thunks return normalized shapes; reducers replace updated calls <br>
 • Realtime updates merged via applyCallUpdate to keep UI in sync <br>
 
-## 16) Tested Component Files
+## 16) Tested Component
 
 • src/components/core/LabeledTextField/index.tsx <br>
 
@@ -205,11 +205,15 @@ images/...
 
 • src/components/system/CallsRealtime.tsx<br> 
 
+• src/components/core/Select/Select.test.jsx<br>
+
+• src/components/core/Table/Table.test.jsx<br>
+
 ## 17)Test Results
 ```bash
-Test Suites: 7 passed, 7 total
-Tests:       42 passed, 42 total
+Test Suites: 9 passed, 9 total
+Tests:       53 passed, 53 total
 Snapshots:   0 total
-Time:        18.682 s
+Time:        12.954 s, estimated 13 s
 ```
-## Thank you for giving me this oppoertunity. I hope we can work and learn toghether to develop great systems.
+## Thank you for giving me this opportunity. I hope we can work and learn toghether to develop great systems.
