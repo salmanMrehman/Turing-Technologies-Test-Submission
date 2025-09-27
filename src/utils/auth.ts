@@ -1,32 +1,26 @@
 import CommonConstants from "@/constants/commanConstants";
-
-export function getTicket() {
-    return typeof window !== 'undefined'
-        ? sessionStorage.getItem(CommonConstants.TICKET_KEY)
-        : null;
-}
+import Cookies from 'js-cookie';
 
 export function deleteTicket() {
-    sessionStorage.removeItem(CommonConstants.TICKET_KEY);
-}
+    Cookies.remove(CommonConstants.TICKET_KEY);
 
-export function hasTicket(ticket: string) {
-    return (
-        ticket &&
-        ticket !== undefined &&
-        ticket !== null &&
-        ticket !== '' &&
-        ticket !== 'false'
-    );
+  // also ensure path root removal
+  Cookies.remove(CommonConstants.TICKET_KEY, { path: "/" });
 }
 
 export function setTicket(ticket: string = '') {
-    if (hasTicket(ticket)) {
-        sessionStorage.setItem(CommonConstants.TICKET_KEY, ticket);
-    } else {
-        sessionStorage.setItem(
-            CommonConstants.TICKET_KEY,
-            ticket,
-        );
-    }
+  if (ticket) {
+    // save in cookie so middleware can read
+    Cookies.set(CommonConstants.TICKET_KEY, ticket, {
+      expires: 9 / (24 * 60), // 9 minutes in days (js-cookie expects days)
+      secure: true,
+      sameSite: "strict",
+    });
+  } else {
+    deleteTicket();
+  }
+}
+
+export function getTicket(): string | null {
+  return Cookies.get(CommonConstants.TICKET_KEY) || null;
 }

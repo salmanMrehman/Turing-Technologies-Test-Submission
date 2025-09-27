@@ -66,22 +66,31 @@ export default function LoginPage() {
     };
   }
 
-  async function handleSubmit() {
-    const v = validate(values);
-    setErrors(v);
-    setTouched({ email: true, password: true });
-    if (Object.keys(v).length > 0) return;
+  async function handleSubmit() { 
+  const v = validate(values);
+  setErrors(v);
+  setTouched({ email: true, password: true });
+  if (Object.keys(v).length > 0) return;
 
-    // Your API expects { username, password }
+  try {
     const res = await dispatch(
       logIn({ username: values.email, password: values.password })
     );
-    // Optionally, check fulfilled and navigate:
-    if (logIn.fulfilled.match(res)) router.push("/calls");
-    else {
+
+    console.log("Login result:", res);
+
+    if (logIn.fulfilled.match(res)) {
+      console.log('here')
+      router.push("/calls");
+    } else {
       toast.error(LanguageConstants.SIGNIN_PAGE.TOAST.LOGIN_FAILED);
     }
+  } catch (err) {
+    console.error("Login error", err);
+    toast.error(LanguageConstants.SIGNIN_PAGE.TOAST.LOGIN_FAILED);
   }
+}
+
 
   const isLoading = status === "loading";
 

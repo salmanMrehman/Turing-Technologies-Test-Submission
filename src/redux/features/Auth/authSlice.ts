@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import END_POINT from '@/config/endpoints';
 import { postData } from '@/utils/api';
-import { setTicket } from '@/utils/auth';
+import { setTicket, deleteTicket } from '@/utils/auth';
 
 /** Request body sent to the API */
 export interface LogInModel {
@@ -46,6 +46,20 @@ export const logIn = createAsyncThunk<
   }
 });
 
+export const logOut = createAsyncThunk<
+  void,
+  void,
+  { rejectValue: string }
+>("auth/logOut", async (_, { rejectWithValue }) => {
+  try {
+    // call API route that clears the cookie
+    await fetch("/api/logout", { method: "POST" });
+    return;
+  } catch (err: any) {
+    return rejectWithValue(err?.message ?? "Logout failed");
+  }
+});
+
 /** Thunk: POST /refresh using refresh_token */
 export const refreshAccessToken = createAsyncThunk<
   AuthResponse,
@@ -85,7 +99,7 @@ const authSlice = createSlice({
       state.expiresAt = null;
       state.status = 'idle';
       state.error = null;
-      setTicket(''); // clear persisted token if you want
+      deleteTicket()
     },
     setAuth(state, action: PayloadAction<AuthResponse>) {
       const { access_token, refresh_token, expires_in } = action.payload;
@@ -137,7 +151,18 @@ const authSlice = createSlice({
         state.access_token = null;
         state.expiresAt = null;
         // keep refresh_token if you want to let user retry
-      });
+      })
+       .addCase(logOut.fulfilled, (state) => {
+        // when logout succeeds
+        state.access_token = null;
+        state.refresh_token = null;
+        state.expiresAt = null;
+        state.status = "idle";
+        state.error = null;
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        state.error = action.payload ?? "Logout failed";
+      });;
   },
 });
 

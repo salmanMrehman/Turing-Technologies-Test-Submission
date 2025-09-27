@@ -12,6 +12,15 @@ const CONSTANTS = {
             VOICE_MAIL: "Voice Mail",
         },
 
+        FILTER_VALUES: {
+            ALL: "all",
+            ARCHIVED: "archived",
+            UNARCHIVED: "unarchived",
+            MISSED: "missed",
+            ANSWERED: "answered",
+            VOICE_MAIL: "voice mail",
+        },
+
         TABLE: {
             CALL_TYPE: "Call Type",
             DIRECTION: "Direction",
@@ -23,6 +32,18 @@ const CONSTANTS = {
             STATUS: "Status",
             ACTIONS: "Actions",
             LOADING: "Loading…",
+        },
+
+        TABLE_HEADER_KEY: {
+            CALL_TYPE: "call_type",
+            DIRECTION: "direction",
+            DURATION: "duration",
+            FROM: "from",
+            TO: "to",
+            VIA: "via",
+            CREATED_AT: "created_at",
+            STATUS: "status",
+            ACTIONS: "actions",
         },
 
         DIRECTION: {

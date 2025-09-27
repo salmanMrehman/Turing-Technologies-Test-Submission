@@ -1,20 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Select,
-  MenuItem,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Link,
-  Pagination,
-} from "@mui/material";
+import { Box, Container, Typography, Pagination } from "@mui/material";
 import styles from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store";
@@ -25,13 +12,13 @@ import {
   addNote,
   archiveCall,
 } from "@/redux/features/Calls/callsSlice";
-import ArchiveButton from "@/components/custom/ArchiveButton";
 import AddNotes, { AddNotesData } from "@/components/custom/AddNotes";
 import { formatMinutesSeconds } from "@/utils/helper";
-import PrimaryButton from "@/components/core/PrimaryButton";
 import ConfirmDialog from "@/components/custom/ConfirmDialog";
 import type { CallItem } from "@/redux/features/Calls/callsSlice";
 import LanguageConstants from "@/constants/languageConstants";
+import Select from "@/components/core/Select";
+import Table from "@/components/core/Table";
 
 const callTypeClassMap: Record<string, string> = {
   missed: styles.missed,
@@ -50,9 +37,82 @@ export default function CallsPage() {
   const [confirming, setConfirming] = React.useState(false);
   const [isArchiving, setIsArchiving] = React.useState<boolean>(false);
 
-  const [filter, setFilterLocal] = useState<
-    "all" | "archived" | "unarchived" | "missed" | "answered" | "voice mail"
-  >("all");
+  interface Header {
+    key: string;
+    label: string;
+    align?: "left" | "right" | "center";
+  }
+
+  const [filter, setFilterLocal] = useState(
+    LanguageConstants.SIGN_IN_PAGE.FILTER_VALUES.ALL
+  );
+
+  const filterOptions = [
+    {
+      value: LanguageConstants.SIGN_IN_PAGE.FILTER_VALUES.ALL,
+      label: LanguageConstants.SIGN_IN_PAGE.FILTER.ALL,
+    },
+    {
+      value: LanguageConstants.SIGN_IN_PAGE.FILTER_VALUES.ARCHIVED,
+      label: LanguageConstants.SIGN_IN_PAGE.FILTER.ARCHIVED,
+    },
+    {
+      value: LanguageConstants.SIGN_IN_PAGE.FILTER_VALUES.UNARCHIVED,
+      label: LanguageConstants.SIGN_IN_PAGE.FILTER.UNARCHIVED,
+    },
+    {
+      value: LanguageConstants.SIGN_IN_PAGE.FILTER_VALUES.MISSED,
+      label: LanguageConstants.SIGN_IN_PAGE.FILTER.MISSED,
+    },
+    {
+      value: LanguageConstants.SIGN_IN_PAGE.FILTER_VALUES.ANSWERED,
+      label: LanguageConstants.SIGN_IN_PAGE.FILTER.ANSWERED,
+    },
+    {
+      value: LanguageConstants.SIGN_IN_PAGE.FILTER_VALUES.VOICE_MAIL,
+      label: LanguageConstants.SIGN_IN_PAGE.FILTER.VOICE_MAIL,
+    },
+  ];
+
+  const headers: Header[] = [
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.CALL_TYPE,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.DIRECTION,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.DURATION,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.FROM,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.TO,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.VIA,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.CREATED_AT,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.STATUS,
+    },
+    {
+      key: LanguageConstants.SIGN_IN_PAGE.TABLE_HEADER_KEY.CALL_TYPE,
+      label: LanguageConstants.SIGN_IN_PAGE.TABLE.ACTIONS,
+      align: "right" as const,
+    },
+  ];
 
   const openNotes = (row: CallItem) => {
     const safeNotes = (row.notes || [])
@@ -101,135 +161,32 @@ export default function CallsPage() {
         {LanguageConstants.SIGN_IN_PAGE.PAGE_TITLE}
       </Typography>
 
-      <Box className={styles.filterRow}>
-        <Typography component="span" className={styles.filterLabel}>
-          Filter by:
-          {LanguageConstants.SIGN_IN_PAGE.FILTER.LABEL}
-        </Typography>
-        <Select
-          value={filter}
-          onChange={(e) => {
-            const val = e.target.value as typeof filter;
-            setFilterLocal(val);
-            dispatch(filterCalls(val));
-          }}
-          variant="outlined"
-          className={`${styles.select} ${styles.noOutline}`}
-          MenuProps={{ disableScrollLock: true }}
-        >
-          <MenuItem value="all" className={styles.menuItem}>
-            {LanguageConstants.SIGN_IN_PAGE.FILTER.ALL}
-          </MenuItem>
-          <MenuItem value="archived" className={styles.menuItem}>
-            {LanguageConstants.SIGN_IN_PAGE.FILTER.ARCHIVED}
-          </MenuItem>
-          <MenuItem value="unarchived" className={styles.menuItem}>
-            {LanguageConstants.SIGN_IN_PAGE.FILTER.UNARCHIVED}
-          </MenuItem>
-          <MenuItem value="missed" className={styles.menuItem}>
-            {LanguageConstants.SIGN_IN_PAGE.FILTER.MISSED}
-          </MenuItem>
-          <MenuItem value="answered" className={styles.menuItem}>
-            {LanguageConstants.SIGN_IN_PAGE.FILTER.ANSWERED}
-          </MenuItem>
-          <MenuItem value="voice mail" className={styles.menuItem}>
-            {LanguageConstants.SIGN_IN_PAGE.FILTER.VOICE_MAIL}
-          </MenuItem>
-        </Select>
-      </Box>
+      <Select
+        value={filter}
+        options={filterOptions}
+        onChange={(val) => {
+          setFilterLocal(val as typeof filter);
+          dispatch(filterCalls(val));
+        }}
+        label={LanguageConstants.SIGN_IN_PAGE.FILTER.LABEL}
+      />
 
       <Box className={styles.tableWrapper}>
-        <Table className={styles.table} aria-label="calls table">
-          <TableHead>
-            <TableRow className={styles.headRow}>
-              <TableCell>
-                {LanguageConstants.SIGN_IN_PAGE.TABLE.CALL_TYPE}
-              </TableCell>
-              <TableCell>
-                {LanguageConstants.SIGN_IN_PAGE.TABLE.DIRECTION}
-              </TableCell>
-              <TableCell>
-                {LanguageConstants.SIGN_IN_PAGE.TABLE.DURATION}
-              </TableCell>
-              <TableCell>{LanguageConstants.SIGN_IN_PAGE.TABLE.FROM}</TableCell>
-              <TableCell>{LanguageConstants.SIGN_IN_PAGE.TABLE.TO}</TableCell>
-              <TableCell>{LanguageConstants.SIGN_IN_PAGE.TABLE.VIA}</TableCell>
-              <TableCell>
-                {LanguageConstants.SIGN_IN_PAGE.TABLE.CREATED_AT}
-              </TableCell>
-              <TableCell>
-                {LanguageConstants.SIGN_IN_PAGE.TABLE.STATUS}
-              </TableCell>
-              <TableCell align="right">
-                {LanguageConstants.SIGN_IN_PAGE.TABLE.ACTIONS}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {calls &&
-              calls?.map((row) => (
-                <TableRow key={row.id} className={styles.bodyRow}>
-                  <TableCell
-                    className={
-                      callTypeClassMap[row.call_type.toLowerCase()] ||
-                      styles.voiceMail
-                    }
-                  >
-                    {row.call_type}
-                  </TableCell>
-
-                  <TableCell>
-                    <Link className={styles.link} href="#" underline="none">
-                      {row.direction === "inbound" ? "Inbound" : "Outbound"}
-                    </Link>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className={styles.durationMain}>
-                      {formatMinutesSeconds(Number(row.duration))}
-                    </div>
-                    <Link
-                      className={styles.secondsLink}
-                      href="#"
-                      underline="none"
-                    >
-                      ({row.duration} seconds)
-                    </Link>
-                  </TableCell>
-
-                  <TableCell>{row.from}</TableCell>
-                  <TableCell>{row.to}</TableCell>
-                  <TableCell>{row.via}</TableCell>
-                  <TableCell>{row.created_at?.split("T")[0]}</TableCell>
-
-                  <TableCell>
-                    <ArchiveButton
-                      archived={!!row.is_archived}
-                      onClick={() => askArchive(row.id, row.is_archived)}
-                    />
-                  </TableCell>
-
-                  <TableCell align="right">
-                    <PrimaryButton type="button" onClick={() => openNotes(row)}>
-                      Add Note
-                    </PrimaryButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-
-            {status === "loading" && (
-              <TableRow>
-                <TableCell colSpan={9}>Loading…</TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+        <Box className={styles.tableWrapper}>
+          <Table
+            headers={headers}
+            rows={calls}
+            status={status}
+            selectedFilter={filter}
+            onOpenNotes={openNotes}
+            onArchive={askArchive}
+            callTypeClassMap={callTypeClassMap}
+          />
+        </Box>
       </Box>
 
       {/* Pagination control */}
 
-      {/* Pagination block */}
       {filter === "all" && totalPages > 1 && (
         <Box className={styles.paginationWrap}>
           <Pagination

@@ -2,6 +2,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { getTicket } from '@/utils/auth';
 import toast from 'react-hot-toast';
+import { deleteTicket } from '@/utils/auth';
 
 type SuccessInfo = {
   method: string;
@@ -39,8 +40,12 @@ instance.interceptors.response.use(
     const method = response.config.method?.toLowerCase();
     const isMutation = method === 'post' || method === 'put';
     const ok = response.status >= 200 && response.status < 300;
+    const unathorized = response.status === 404;
     if (isMutation && ok) {   
         toast.success('Request has been processed successfully.');
+    }
+    else if(unathorized){
+      deleteTicket()
     }
     return response;
   },
